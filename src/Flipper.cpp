@@ -7,14 +7,14 @@
 #define RECALL_TAG 'B'
 
 // flipper board standalone
-int DirPin = 5;
-int StepPin = 6;
-int EnPin = 12;
+// int DirPin = 5;
+// int StepPin = 6;
+// int EnPin = 12;
 
 // placa bombaj eje Y
-// int DirPin = 6;
-// int StepPin = 3;
-// int EnPin = 8;
+int DirPin = 6;
+int StepPin = 3;
+int EnPin = 8;
 
 int SensorPin = 4;
 int pauseBtn = 2;
@@ -121,7 +121,7 @@ void bootPause()
   startMillis = millis();
   //Serial.println("Pausa");
 
-  while (millis() < startMillis + settings.bootpause - 2000) // 2000 es el tiempo que tiene para mandar el msj de la foto.
+  while (millis() < startMillis + settings.bootpause) // 2000 es el tiempo que tiene para mandar el msj de la foto.
   {
     SerialReceive();
   }
@@ -144,6 +144,7 @@ void pulsing()
 {
   int f = (settings.flipTime * 1000) / settings.flipPulses;
   int fr = 0;
+  digitalWrite(EnPin, LOW);
 
   for (int steps = 0; steps < settings.flipPulses; steps++)
   {
@@ -152,6 +153,7 @@ void pulsing()
     digitalWrite(StepPin, LOW);
     delayMicroseconds(f - 10);
   }
+  digitalWrite(EnPin, HIGH);
 }
 
 void pausa(unsigned long pauseTime)
@@ -197,14 +199,13 @@ void pausa(unsigned long pauseTime)
 void turnCW()
 {
   Serial.println("M"); //start moving
-  delay(1000);
-  digitalWrite(EnPin, LOW);
+  // delay(1000);
   digitalWrite(DirPin, HIGH);
   pulsing();
   // digitalWrite(EnPin, HIGH);
 
   //  if (takePhoto == true) {
-  delay(1000);
+  // delay(1000);
   if (digitalRead(SensorPin) == LOW)
   {
     Serial.println("A"); //On A side
@@ -219,14 +220,13 @@ void turnCW()
 void turnCCW()
 {
   Serial.println("M"); //start moving
-  delay(1000);
-  digitalWrite(EnPin, LOW);
+  // delay(1000);
   digitalWrite(DirPin, LOW);
   pulsing();
   // digitalWrite(EnPin, HIGH);
 
   //  if (takePhoto == true) {
-  delay(1000);
+  // delay(1000);
   if (digitalRead(SensorPin) == LOW)
   {
     Serial.println("A"); //On A side
@@ -241,7 +241,7 @@ void turnCCW()
 void setup()
 {
   pinMode(EnPin, OUTPUT);
-  digitalWrite(EnPin, LOW);
+  digitalWrite(EnPin, HIGH);
   pinMode(StepPin, OUTPUT);
   pinMode(DirPin, OUTPUT);
   pinMode(SensorPin, INPUT_PULLUP);

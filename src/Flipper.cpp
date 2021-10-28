@@ -12,12 +12,22 @@
 // int EnPin = 12;
 
 // placa bombaj eje Y
-int DirPin = 6;
-int StepPin = 3;
+// int DirPin = 6;
+// int StepPin = 3;
+// int EnPin = 8;
+
+// placa dualflipper eje x
+// int DirPin = 6;
+// int StepPin = 11;
+// int EnPin = 8;
+
+// placa dualflipper eje Y
+int DirPin = 2;
+int StepPin = 9;
 int EnPin = 8;
 
 int SensorPin = 4;
-int pauseBtn = 2;
+int pauseBtn = 5;
 
 struct Settings
 {
